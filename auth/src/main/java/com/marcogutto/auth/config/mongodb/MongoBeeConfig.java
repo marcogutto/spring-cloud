@@ -2,6 +2,9 @@ package com.marcogutto.auth.config.mongodb;
 
 import com.github.mongobee.Mongobee;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +16,10 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 @DependsOn("mongoTemplate")
 public class MongoBeeConfig {
 
+	protected final Log logger = LogFactory.getLog(getClass());
+	
     private static final String MONGODB_URL_FORMAT = "mongodb://%s:%s@%s:%d/%s";
-    private static final String MONGODB_CHANGELOGS_PACKAGE = "com.marcusdacoregio.authservice.config.mongodb.changelogs";
+    private static final String MONGODB_CHANGELOGS_PACKAGE = "com.marcogutto.auths.config.mongodb.changelogs";
 
     @Autowired
     private MongoProperties mongoProperties;
@@ -24,6 +29,15 @@ public class MongoBeeConfig {
 
     @Bean
     public Mongobee mongobee() {
+    	
+    	logger.info(" RAW URL "+MONGODB_URL_FORMAT);
+    	logger.info(" FULL URL "+String.format(MONGODB_URL_FORMAT,
+                mongoProperties.getUsername(),
+                mongoProperties.getPassword(),
+                mongoProperties.getHost(),
+                mongoProperties.getPort(),
+                mongoProperties.getDatabase()));
+    	
         Mongobee runner = new Mongobee(String.format(MONGODB_URL_FORMAT,
                 mongoProperties.getUsername(),
                 mongoProperties.getPassword(),

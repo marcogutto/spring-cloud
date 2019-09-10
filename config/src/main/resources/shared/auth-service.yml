@@ -3,9 +3,9 @@ spring:
     mongodb:
       host: localhost
       port: 27017
-      username: oauth-user
+      username: 'oauth-user'
       password: password
-      database: oauth-db
+      database: 'oauth-db'
 
 server:
   servlet:
