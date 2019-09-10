@@ -19,7 +19,7 @@ public class MongoBeeConfig {
 	protected final Log logger = LogFactory.getLog(getClass());
 	
     private static final String MONGODB_URL_FORMAT = "mongodb://%s:%s@%s:%d/%s";
-    private static final String MONGODB_CHANGELOGS_PACKAGE = "com.marcogutto.auths.config.mongodb.changelogs";
+    private static final String MONGODB_CHANGELOGS_PACKAGE = "com.marcogutto.auth.config.mongodb.changelogs";
 
     @Autowired
     private MongoProperties mongoProperties;
@@ -33,14 +33,16 @@ public class MongoBeeConfig {
     	logger.info(" RAW URL "+MONGODB_URL_FORMAT);
     	logger.info(" FULL URL "+String.format(MONGODB_URL_FORMAT,
                 mongoProperties.getUsername(),
-                mongoProperties.getPassword(),
+                "password",
                 mongoProperties.getHost(),
                 mongoProperties.getPort(),
                 mongoProperties.getDatabase()));
     	
+    	//TODO
         Mongobee runner = new Mongobee(String.format(MONGODB_URL_FORMAT,
                 mongoProperties.getUsername(),
-                mongoProperties.getPassword(),
+                "password",
+                //mongoProperties.getPassword(),
                 mongoProperties.getHost(),
                 mongoProperties.getPort(),
                 mongoProperties.getDatabase()));
